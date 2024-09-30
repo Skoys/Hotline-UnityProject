@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] private bool inputShooting;
     [SerializeField] private bool inputInteract;
     [SerializeField] private player_inputs playerInput;
-    
+
 
     private void Start()
     {
@@ -40,7 +40,14 @@ public class Player : MonoBehaviour
     void GetInputs()
     {
         inputMovement = playerInput.movement;
-        transform.position += new Vector3(inputMovement.x, 0, inputMovement.y) * Time.deltaTime;
+        Vector3 nextMovement = new Vector3(inputMovement.x, 0, inputMovement.y) * speed * Time.deltaTime;
+        RaycastHit hit;
+        if (!Physics.Raycast(transform.position, nextMovement, out hit, Mathf.Infinity, 0))
+        {
+            transform.position += nextMovement;
+        }
+        else { transform.position += nextMovement * hit.distance; }
+        Debug.DrawRay(transform.position, nextMovement * 10, Color.yellow);
 
         inputInteract = playerInput.isInteracting;
 
