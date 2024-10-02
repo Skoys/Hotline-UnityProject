@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -7,6 +8,7 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     [SerializeField] private GameObject playerVisual;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private float speed = 10.0f;
     [SerializeField] private float maxSpeed = 10.0f;
 
@@ -50,7 +52,9 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(mouseRay, out hit) )
         {
             playerVisual.transform.LookAt(hit.point);
-            playerVisual.transform.eulerAngles = new Vector3(90, playerVisual.transform.eulerAngles.y, 0);
+            playerVisual.transform.eulerAngles = new Vector3(90, playerVisual.transform.eulerAngles.y - 1, 0);
+            Debug.DrawRay(hit.point, new Vector3(0, 1, 0), Color.red);
+            Debug.DrawRay(transform.position, transform.forward * 10, Color.red);
         }
     }
 
@@ -94,13 +98,24 @@ public class Player : MonoBehaviour
     {
         if (!inputShooting) { return; }
         if(gunEmplacement.transform.childCount == 0) { return; }
-        gunEmplacement.GetComponentInChildren<Script_Gun>().Shoot();
+        bool hasShot = gunEmplacement.GetComponentInChildren<Script_Gun>().Shoot();
+        if (!hasShot) { return; }
+        IEnumerator coroutine = ShakeCamera(1, 0.15f);
+        StartCoroutine(coroutine);
     }
 
     void Animations()
     {
         animator.SetFloat("animWalkSpeed", Mathf.Abs(inputMovement.x + inputMovement.y));
         animator.SetBool("hasGun", hasGun);
+    }
+
+    private IEnumerator ShakeCamera(float intensity, float timer)
+    {
+        virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = intensity;
+        yield return new WaitForSeconds(timer);
+        virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+        yield return null;
     }
 
     private void OnDrawGizmosSelected()
