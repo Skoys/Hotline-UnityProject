@@ -1,12 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Script_Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 2;
+    [SerializeField] private float lifespan = 5;
     [SerializeField] private Vector3 oldPos;
+    [SerializeField] private VisualEffect vfx;
 
+    private void Start()
+    {
+        vfx = GetComponent<VisualEffect>();
+    }
 
     void Update()
     {
@@ -17,9 +24,13 @@ public class Script_Bullet : MonoBehaviour
             Debug.Log("Entered Collider : " + hit.transform.tag);
             if (hit.transform.tag == "Map")
             {
-                Destroy(gameObject);
+                StartCoroutine("Die");
             }
         }
+
+        lifespan -= Time.deltaTime;
+        if (lifespan <= 0) { StartCoroutine("Die"); }
+
         Debug.DrawRay(oldPos, transform.position - oldPos, Color.yellow);
         oldPos = transform.position;
     }
@@ -28,7 +39,16 @@ public class Script_Bullet : MonoBehaviour
     {
         if (other.tag == "Map")
         {
-            Destroy(gameObject);
+            StartCoroutine("Die");
         }
+    }
+
+    private IEnumerator Die()
+    {
+        speed = 0;
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        vfx.Play();
+        yield return new WaitForSeconds(3);
+        Destroy(gameObject);
     }
 }

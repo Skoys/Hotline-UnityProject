@@ -42,8 +42,8 @@ VisualEffect:
   m_GameObject: {fileID: 2060300001434673091}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 9c777d9c72d14384a8a2d7c750cb7b80, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_AllowInstancing: 1
@@ -218,6 +218,7 @@ MonoBehaviour:
   currentTime: 0
   currentErrorAngle: 0
   bulletPREFAB: {fileID: 6910307746581049474, guid: 0c6e679cb58da5d4ab89d7d0cc3cc8ad, type: 3}
+  vfx: {fileID: 5395297670138249786}
 --- !u!65 &5374400065627362854
 BoxCollider:
   m_ObjectHideFlags: 0
