@@ -54,7 +54,6 @@ public class Player : MonoBehaviour
             playerVisual.transform.LookAt(hit.point);
             playerVisual.transform.eulerAngles = new Vector3(90, playerVisual.transform.eulerAngles.y - 1, 0);
             Debug.DrawRay(hit.point, new Vector3(0, 1, 0), Color.red);
-            Debug.DrawRay(transform.position, transform.forward * 10, Color.red);
         }
     }
 

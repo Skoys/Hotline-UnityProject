@@ -15,9 +15,15 @@ public class Script_AI_NavMesh : MonoBehaviour
     [SerializeField] List<Vector4> pointPositions;
 
     [SerializeField] Vector4 closest;
+    [SerializeField] Vector3 bridge;
     [SerializeField] int selected;
     [SerializeField] bool recalculate = true;
     [SerializeField] float distBtwPoints;
+
+    private void Start()
+    {
+        Recalculate() ;
+    }
 
     private void Update()
     {
@@ -46,11 +52,15 @@ public class Script_AI_NavMesh : MonoBehaviour
 
         if (recalculate)
         {
-            CalculateNewNavmesh();
-            CalculateClosest();
-            CalculateTree(closest);
-            Debug.DrawRay(GetTheClosest(other), new Vector3(0, 10, 0), Color.green, 10)
+            Recalculate();
         }
+    }
+
+    private void Recalculate()
+    {
+        CalculateNewNavmesh();
+        CalculateClosest();
+        CalculateTree(closest);
     }
 
     private void CalculateNewNavmesh()
@@ -207,13 +217,14 @@ public class Script_AI_NavMesh : MonoBehaviour
 
     public Vector3 GetTheClosest(GameObject seeker)
     {
+        Recalculate();
         RaycastHit hit;
         Vector3 v3Point = Vector3.zero;
         Vector4 ret = Vector4.positiveInfinity;
         foreach (var point in pointPositions)
         {
             v3Point = new Vector3(point.x, point.y, point.z);
-            if(Physics.Raycast(seeker.transform.position, (v3Point - seeker.transform.position).normalized, out hit, 30))
+            if(Physics.Raycast(v3Point, (seeker.transform.position - v3Point).normalized, out hit, 15))
             {
                 if(hit.collider.gameObject == seeker.gameObject)
                 {
@@ -224,7 +235,8 @@ public class Script_AI_NavMesh : MonoBehaviour
                 }
             }
         }
-        return new Vector3(ret.x, ret.y, ret.z);
+        bridge = new Vector3(ret.x, ret.y, ret.z);
+        return bridge;
     }
 
     private void OnDrawGizmos()
@@ -242,6 +254,9 @@ public class Script_AI_NavMesh : MonoBehaviour
             Gizmos.color = Color.blue;
             v3Point = new Vector3(pointPositions[selected].x, pointPositions[selected].y, pointPositions[selected].z);
             Gizmos.DrawWireSphere(v3Point, gizmosSize * 1.5f);
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(bridge, gizmosSize * 1.25f);
         }
 
         Gizmos.color = Color.blue;

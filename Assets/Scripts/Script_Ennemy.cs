@@ -16,8 +16,13 @@ public class Script_Ennemy : MonoBehaviour
 
 
     [Header("Debug")]
+    [SerializeField] private Script_AI_NavMesh navMesh;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject visual;
     [SerializeField] EnnemyBehaviour behaviour = EnnemyBehaviour.FindPath;
     [SerializeField] Vector3 gotoNext;
+    [SerializeField] float time;
 
     private enum EnnemyType
     {
@@ -36,7 +41,12 @@ public class Script_Ennemy : MonoBehaviour
         Attack
     }
 
-    // Update is called once per frame
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        visual = GetComponentInChildren<GameObject>();
+    }
+
     void Update()
     {
         switch (behaviour)
@@ -45,21 +55,54 @@ public class Script_Ennemy : MonoBehaviour
                 return;
 
             case EnnemyBehaviour.GetNear:
+                GetNear();
                 return;
 
             case EnnemyBehaviour.FindPath:
+                FindPath();
                 return;
         }
     }
 
     private void FindPath()
     {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, player.transform.position - transform.position, out hit, 15))
+        {
+            if(hit.transform.tag == "Player")
+            {
+                rb.velocity = (player.transform.position - transform.position).normalized * speed;
+                gotoNext = player.transform.position;
+            }
+            else
+            {
+                Vector3 target = navMesh.GetTheClosest(gameObject);
+                rb.velocity = (target - transform.position).normalized * speed;
+                gotoNext = target;
+            }
+        }
+        transform.LookAt(gotoNext);
+        transform.eulerAngles = new Vector3(180, transform.eulerAngles.y - 1, 180);
+        time = Time.time + 1;
+        behaviour = EnnemyBehaviour.GetNear;
+    }
 
+    private void GetNear()
+    {
+        if(Vector3.Distance(gotoNext, transform.position) < 1f)
+        {
+            behaviour = EnnemyBehaviour.FindPath;
+        }
+        if(time <= Time.time)
+        {
+            behaviour = EnnemyBehaviour.FindPath;
+        }
+        Debug.DrawRay(transform.position, rb.velocity, Color.red, 0.1f);
     }
 
     private void OnDrawGizmos()
     {
-        //Gizmos.color = Color.yellow;
-        //Gizmos.DrawSphere(gotoNext, 0.5f);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(gotoNext, 1f);
     }
 }

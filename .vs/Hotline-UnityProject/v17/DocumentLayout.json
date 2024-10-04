@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\alexandre.coppens\\Documents\\Github\\Hotline-UnityProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4AA85816-C58C-0E10-3B34-809824CDC469}|Assembly-CSharp.csproj|c:\\users\\alexandre.coppens\\documents\\github\\hotline-unityproject\\assets\\scripts\\script_ai_navmesh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4AA85816-C58C-0E10-3B34-809824CDC469}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\script_ai_navmesh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4AA85816-C58C-0E10-3B34-809824CDC469}|Assembly-CSharp.csproj|C:\\Users\\alexandre.coppens\\Documents\\Github\\Hotline-UnityProject\\assets\\scripts\\script_ennemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AA85816-C58C-0E10-3B34-809824CDC469}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\script_ennemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4AA85816-C58C-0E10-3B34-809824CDC469}|Assembly-CSharp.csproj|c:\\users\\alexandre.coppens\\documents\\github\\hotline-unityproject\\assets\\scripts\\script_ennemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4AA85816-C58C-0E10-3B34-809824CDC469}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\script_ennemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4AA85816-C58C-0E10-3B34-809824CDC469}|Assembly-CSharp.csproj|C:\\Users\\alexandre.coppens\\Documents\\Github\\Hotline-UnityProject\\assets\\scripts\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AA85816-C58C-0E10-3B34-809824CDC469}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AA85816-C58C-0E10-3B34-809824CDC469}|Assembly-CSharp.csproj|c:\\users\\alexandre.coppens\\documents\\github\\hotline-unityproject\\assets\\scripts\\script_ai_navmesh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AA85816-C58C-0E10-3B34-809824CDC469}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\script_ai_navmesh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4AA85816-C58C-0E10-3B34-809824CDC469}|Assembly-CSharp.csproj|C:\\Users\\alexandre.coppens\\Documents\\Github\\Hotline-UnityProject\\assets\\scripts\\script_bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -17,10 +21,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{4AA85816-C58C-0E10-3B34-809824CDC469}|Assembly-CSharp.csproj|C:\\Users\\alexandre.coppens\\Documents\\Github\\Hotline-UnityProject\\assets\\scripts\\script_gun.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4AA85816-C58C-0E10-3B34-809824CDC469}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\script_gun.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4AA85816-C58C-0E10-3B34-809824CDC469}|Assembly-CSharp.csproj|C:\\Users\\alexandre.coppens\\Documents\\Github\\Hotline-UnityProject\\assets\\scripts\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4AA85816-C58C-0E10-3B34-809824CDC469}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,37 +30,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Script_AI_NavMesh.cs",
               "DocumentMoniker": "C:\\Users\\alexandre.coppens\\Documents\\Github\\Hotline-UnityProject\\Assets\\Scripts\\Script_AI_NavMesh.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Script_AI_NavMesh.cs",
               "ToolTip": "C:\\Users\\alexandre.coppens\\Documents\\Github\\Hotline-UnityProject\\Assets\\Scripts\\Script_AI_NavMesh.cs",
               "RelativeToolTip": "Assets\\Scripts\\Script_AI_NavMesh.cs",
-              "ViewState": "AQIAAAUAAAAAAAAAAAAQwAcAAAAtAAAA",
+              "ViewState": "AQIAAEEAAAAAAAAAAAAwwOoAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-03T09:41:58.14Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Script_Ennemy.cs",
               "DocumentMoniker": "C:\\Users\\alexandre.coppens\\Documents\\Github\\Hotline-UnityProject\\Assets\\Scripts\\Script_Ennemy.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Script_Ennemy.cs",
               "ToolTip": "C:\\Users\\alexandre.coppens\\Documents\\Github\\Hotline-UnityProject\\Assets\\Scripts\\Script_Ennemy.cs",
               "RelativeToolTip": "Assets\\Scripts\\Script_Ennemy.cs",
-              "ViewState": "AQIAACIAAAAAAAAAAAAUwEEAAAAAAAAA",
+              "ViewState": "AQIAAD4AAAAAAAAAAAAYwFQAAABKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-03T09:41:15.644Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Script_Gun.cs",
               "DocumentMoniker": "C:\\Users\\alexandre.coppens\\Documents\\Github\\Hotline-UnityProject\\Assets\\Scripts\\Script_Gun.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Script_Gun.cs",
@@ -72,7 +72,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Script_Bullet.cs",
               "DocumentMoniker": "C:\\Users\\alexandre.coppens\\Documents\\Github\\Hotline-UnityProject\\Assets\\Scripts\\Script_Bullet.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Script_Bullet.cs",
@@ -84,15 +84,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\alexandre.coppens\\Documents\\Github\\Hotline-UnityProject\\Assets\\Scripts\\Player.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player.cs",
               "ToolTip": "C:\\Users\\alexandre.coppens\\Documents\\Github\\Hotline-UnityProject\\Assets\\Scripts\\Player.cs",
               "RelativeToolTip": "Assets\\Scripts\\Player.cs",
-              "ViewState": "AQIAAGEAAAAAAAAAAAAcwGcAAAAiAAAA",
+              "ViewState": "AQIAACwAAAAAAAAAAAAQwDUAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-30T15:39:13.659Z"
+              "WhenOpened": "2024-09-30T15:39:13.659Z",
+              "EditorCaption": ""
             }
           ]
         }
