@@ -122,7 +122,6 @@ GameObject:
   - component: {fileID: 5394602654315323626}
   - component: {fileID: 6793427792779798096}
   - component: {fileID: 3619427333978265473}
-  - component: {fileID: 5374400065627362854}
   m_Layer: 6
   m_Name: FAMAS
   m_TagString: Weapon
@@ -219,24 +218,3 @@ MonoBehaviour:
   currentErrorAngle: 0
   bulletPREFAB: {fileID: 6910307746581049474, guid: 0c6e679cb58da5d4ab89d7d0cc3cc8ad, type: 3}
   vfx: {fileID: 5395297670138249786}
---- !u!65 &5374400065627362854
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7228024056005618335}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.21384747, y: 0.4044307, z: 0.20000026}
-  m_Center: {x: 0.016874582, y: 0.01683174, z: 1.714887e-17}

@@ -7,12 +7,12 @@ public class Script_Gun : MonoBehaviour
 {
     [SerializeField] private bool isOnGround = true;
     [SerializeField] private int ammunitions = 25;
-    [SerializeField] private int errorAngle = 25;
+    public int errorAngle = 25;
     [SerializeField] private float errorSpeed = 0.5f;
     [SerializeField] private float shootingSpeed = 0.2f;
 
     [SerializeField] private float currentTime = 0.0f;
-    [SerializeField] private float currentErrorAngle = 0.0f;
+    public float currentErrorAngle = 0.0f;
     [SerializeField] GameObject bulletPREFAB;
 
     [SerializeField] private VisualEffect vfx;
@@ -39,6 +39,7 @@ public class Script_Gun : MonoBehaviour
         {
             int errorMargin = Random.Range((int)-currentErrorAngle, (int)currentErrorAngle + 1);
             GameObject bullet = Instantiate(bulletPREFAB, transform.position, Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y + errorMargin, transform.eulerAngles.z));
+            bullet.GetComponent<Script_Bullet>().from = transform.tag;
             currentTime = shootingSpeed;
             currentErrorAngle += errorSpeed;
             currentErrorAngle = Mathf.Clamp(currentErrorAngle, 0, errorAngle);
