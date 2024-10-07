@@ -1,20 +1,24 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private GameObject playerVisual;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private float speed = 10.0f;
     [SerializeField] private float maxSpeed = 10.0f;
+    [SerializeField] private float life = 4;
 
     [SerializeField] private float interactDist = 2f;
 
     [Header("Gun")]
     [SerializeField] private GameObject gunEmplacement;
-    [SerializeField] private bool hasGun = false;
+    [SerializeField] private bool hasGun = true;
     [SerializeField] private LayerMask gunLayer;
     
 
@@ -24,23 +28,29 @@ public class Player : MonoBehaviour
     [SerializeField] private bool inputInteract;
     [SerializeField] private player_inputs playerInput;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private VisualEffect vfx;
     private Animator animator;
+    [SerializeField] private bool isDead = false;
 
     private void Start()
     {
         playerInput = GetComponent<player_inputs>();
         animator = playerVisual.GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        vfx = GetComponent<VisualEffect>();
     }
 
     void Update()
     {
-        FollowCursor();
-        GetInputs();
-        Movements();
-        Interact();
-        Shoot();
-        Animations();
+        if (!isDead)
+        {
+            FollowCursor();
+            GetInputs();
+            Movements();
+            Interact();
+            Shoot();
+            Animations();
+        }
     }
 
     private void FollowCursor()
@@ -50,7 +60,8 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(mouseRay, out hit) )
         {
             playerVisual.transform.LookAt(hit.point);
-            playerVisual.transform.eulerAngles = new Vector3(90, playerVisual.transform.eulerAngles.y, 0);
+            playerVisual.transform.eulerAngles = new Vector3(90, playerVisual.transform.eulerAngles.y - 1, 0);
+            Debug.DrawRay(hit.point, new Vector3(0, 1, 0), Color.red);
         }
     }
 
@@ -94,13 +105,48 @@ public class Player : MonoBehaviour
     {
         if (!inputShooting) { return; }
         if(gunEmplacement.transform.childCount == 0) { return; }
-        gunEmplacement.GetComponentInChildren<Script_Gun>().Shoot();
+        bool hasShot = gunEmplacement.GetComponentInChildren<Script_Gun>().Shoot();
+        if (!hasShot) { return; }
+        IEnumerator coroutine = ShakeCamera(1, 0.15f);
+        StartCoroutine(coroutine);
     }
 
     void Animations()
     {
         animator.SetFloat("animWalkSpeed", Mathf.Abs(inputMovement.x + inputMovement.y));
         animator.SetBool("hasGun", hasGun);
+    }
+
+    public void TakeDamage(float nbr)
+    {
+        life -= nbr;
+        IEnumerator coroutine = ShakeCamera(2, 0.3f);
+        StartCoroutine(coroutine);
+        vfx.Play();
+        if (life <= 0)
+        {
+            gameObject.tag = "Bullet";
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        isDead = true;
+        rb.velocity = Vector3.zero;
+        rb.velocity = Vector3.zero;
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Collider>().enabled = false;
+        playerVisual.transform.eulerAngles = new Vector3(-90, playerVisual.transform.eulerAngles.y, 180);
+        animator.SetTrigger("Die");
+    }
+
+    private IEnumerator ShakeCamera(float intensity, float timer)
+    {
+        virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = intensity;
+        yield return new WaitForSeconds(timer);
+        virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+        yield return null;
     }
 
     private void OnDrawGizmosSelected()
