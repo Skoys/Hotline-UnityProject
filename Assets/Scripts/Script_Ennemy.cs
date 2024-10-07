@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Script_Ennemy : MonoBehaviour
 {
     [SerializeField] EnnemyType ennemyType = EnnemyType.Basic;
 
     [Header("Characteristics")]
-    [SerializeField] private float life = 250;
+    [SerializeField] private float life = 3;
     [SerializeField] private float speed = 5;
     [SerializeField] private float attackSpeed = 0.3f;
     [SerializeField] private int missAngle = 25;
@@ -23,6 +24,7 @@ public class Script_Ennemy : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Script_Gun gun;
     [SerializeField] private Animator animator;
+    [SerializeField] private VisualEffect vfx;
     [SerializeField] EnnemyBehaviour behaviour = EnnemyBehaviour.FindPath;
     [SerializeField] Vector3 gotoNext;
     [SerializeField] float recalcTime;
@@ -50,6 +52,7 @@ public class Script_Ennemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
+        vfx = GetComponent<VisualEffect>();
         gun.errorAngle = missAngle;
     }
 
@@ -151,8 +154,11 @@ public class Script_Ennemy : MonoBehaviour
     public void TakeDamage(float nbr)
     {
         life -= nbr;
+        rb.AddForce((player.transform.position - transform.position).normalized * -1);
+        vfx.Play();
         if(life <= 0)
         {
+            gameObject.tag = "Bullet";
             Die();
         }
     }
@@ -161,7 +167,8 @@ public class Script_Ennemy : MonoBehaviour
     {
         behaviour = EnnemyBehaviour.Dead;
         rb.velocity = Vector3.zero;
-        GetComponent<Rigidbody>().isKinematic = false;
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Collider>().enabled = false;
         transform.eulerAngles = new Vector3(180, transform.eulerAngles.y, 180);
         animator.SetTrigger("Die");
     }

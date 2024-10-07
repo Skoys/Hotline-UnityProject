@@ -7,7 +7,7 @@ public class Script_Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 2;
     [SerializeField] private float lifespan = 5;
-    public float damages = 10;
+    public float damages = 1;
     [SerializeField] private Vector3 oldPos;
     [SerializeField] private VisualEffect vfx;
     public string from;
@@ -44,6 +44,10 @@ public class Script_Bullet : MonoBehaviour
             if(other.transform.tag == "Ennemy")
             {
                 other.gameObject.GetComponent<Script_Ennemy>().TakeDamage(damages);
+            }
+            if (other.transform.tag == "Player")
+            {
+                other.gameObject.GetComponent<Player>().TakeDamage(damages);
             }
             StartCoroutine("Die");
         }

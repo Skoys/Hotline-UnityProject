@@ -5,7 +5,6 @@ using UnityEngine.VFX;
 
 public class Script_Gun : MonoBehaviour
 {
-    [SerializeField] private bool isOnGround = true;
     [SerializeField] private int ammunitions = 25;
     public int errorAngle = 25;
     [SerializeField] private float errorSpeed = 0.5f;

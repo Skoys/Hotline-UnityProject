@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 35
   lifespan: 5
-  damages: 10
+  damages: 1
   oldPos: {x: 0, y: 0, z: 0}
   vfx: {fileID: 0}
   from: 

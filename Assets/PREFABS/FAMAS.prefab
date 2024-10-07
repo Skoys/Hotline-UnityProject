@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 3619427333978265473}
   m_Layer: 6
   m_Name: FAMAS
-  m_TagString: Weapon
+  m_TagString: Ennemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,7 +209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86b592bed255fb3489d2ad2cfb7a0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOnGround: 0
   ammunitions: 25
   errorAngle: 15
   errorSpeed: 2
