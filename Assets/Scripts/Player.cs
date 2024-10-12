@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -21,6 +22,11 @@ public class Player : MonoBehaviour
     [SerializeField] private bool hasGun = true;
     [SerializeField] private LayerMask gunLayer;
     
+    [Header("Menu")]
+    [SerializeField] private bool inputMenu;
+    [SerializeField] private bool menuAlreadyPressed = false;
+    [SerializeField] private bool menuOpen = false;
+    [SerializeField] private GameObject pauseMenu;
 
     [Header("Debug")]
     [SerializeField] private Vector2 inputMovement;
@@ -31,9 +37,13 @@ public class Player : MonoBehaviour
     [SerializeField] private VisualEffect vfx;
     private Animator animator;
     [SerializeField] private bool isDead = false;
+    
+
+    private GameManager gameManager;
 
     private void Start()
     {
+        gameManager = GameManager.instance;
         playerInput = GetComponent<player_inputs>();
         animator = playerVisual.GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
@@ -42,10 +52,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (!isDead)
+        GetInputs();
+        if (!isDead && !menuOpen)
         {
             FollowCursor();
-            GetInputs();
             Movements();
             Interact();
             Shoot();
@@ -70,6 +80,16 @@ public class Player : MonoBehaviour
         inputMovement = playerInput.movement;
         inputInteract = playerInput.isInteracting;
         inputShooting = playerInput.isShooting;
+        inputMenu = playerInput.menu;
+        if (inputMenu && !menuAlreadyPressed)
+        {
+            menuAlreadyPressed = true;
+            Menu();
+        }
+        if (!inputMenu)
+        {
+            menuAlreadyPressed = false;
+        }
     }
 
     void Movements()
@@ -119,6 +139,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float nbr)
     {
+        gameManager.multiplicator = 1;
         life -= nbr;
         IEnumerator coroutine = ShakeCamera(2, 0.3f);
         StartCoroutine(coroutine);
@@ -139,6 +160,34 @@ public class Player : MonoBehaviour
         GetComponent<Collider>().enabled = false;
         playerVisual.transform.eulerAngles = new Vector3(-90, playerVisual.transform.eulerAngles.y, 180);
         animator.SetTrigger("Die");
+    }
+
+    private void Menu()
+    {
+        if (!menuOpen)
+        {
+            Time.timeScale = 0f;
+            pauseMenu.SetActive(true);
+            menuOpen = true;
+        }
+        else 
+        {
+            Time.timeScale = 1f;
+            menuOpen = false;
+            pauseMenu.SetActive(false);
+        }
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1f;
+        menuOpen = false;
+        pauseMenu.SetActive(false);
+    }
+
+    public void Quit()
+    {
+        SceneManager.LoadScene(0);
     }
 
     private IEnumerator ShakeCamera(float intensity, float timer)
