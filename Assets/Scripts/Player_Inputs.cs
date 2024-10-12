@@ -7,6 +7,7 @@ public class player_inputs : MonoBehaviour
 
     public bool isInteracting = false;
     public bool isShooting = false;
+    public bool menu = false;
     public Vector2 movement = Vector2.zero;
 
     public void Movement(InputAction.CallbackContext context)
@@ -35,6 +36,18 @@ public class player_inputs : MonoBehaviour
         else if (context.canceled)
         {
             isShooting = false;
+        }
+    }
+
+    public void Menu(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            menu = true;
+        }
+        else if (context.canceled)
+        {
+            menu = false;
         }
     }
 }

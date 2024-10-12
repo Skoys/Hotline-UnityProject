@@ -21,7 +21,7 @@ public class Script_Ennemy : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private Script_AI_NavMesh navMesh;
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private GameObject player;
+    public GameObject player;
     [SerializeField] private Script_Gun gun;
     [SerializeField] private Animator animator;
     [SerializeField] private VisualEffect vfx;
@@ -30,14 +30,12 @@ public class Script_Ennemy : MonoBehaviour
     [SerializeField] float recalcTime;
     [SerializeField] float AttackTime;
 
+    GameManager gameManager;
+
     private enum EnnemyType
     {
         Basic,
-        Heavy,
-        Medic,
-        Shield,
-        Cloaker,
-        Bulldozer
+        Heavy
     }
 
     private enum EnnemyBehaviour
@@ -50,6 +48,7 @@ public class Script_Ennemy : MonoBehaviour
 
     private void Start()
     {
+        gameManager = GameManager.instance;
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
         vfx = GetComponent<VisualEffect>();
@@ -165,6 +164,9 @@ public class Script_Ennemy : MonoBehaviour
 
     private void Die()
     {
+        if (ennemyType == EnnemyType.Basic) { gameManager.AddScore(100); }
+        if (ennemyType == EnnemyType.Heavy) { gameManager.AddScore(125); }
+        gameManager.multiplicator += 0.85f;
         behaviour = EnnemyBehaviour.Dead;
         rb.velocity = Vector3.zero;
         GetComponent<Rigidbody>().isKinematic = true;
